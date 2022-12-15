@@ -72,7 +72,7 @@ export class HuespedService {
 
   public getHuespeds(): Observable<Huesped[]> {
     //return this.huespeds;
-    return this.firestore.collection('Huesped').snapshotChanges().pipe(
+    return this.firestore.collection('huespedes').snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as Huesped;
@@ -86,7 +86,7 @@ export class HuespedService {
 
   public getHuespedsByTokenToShow(tkn: string): Observable<Huesped[]> {
     //return this.huespeds;
-    return this.firestore.collection('Huesped', ref => ref.where('token', '==', tkn)).snapshotChanges().pipe(
+    return this.firestore.collection('huespedes', ref => ref.where('token', '==', tkn)).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as Huesped;
@@ -118,13 +118,13 @@ export class HuespedService {
   }
 
   public getHuespedByRoom(rm: string) {
-    let result = this.firestore.collection('Huesped', ref => ref.where('room', '==', rm)).valueChanges();
+    let result = this.firestore.collection('huespedes', ref => ref.where('room', '==', rm)).valueChanges();
     return result;
   }
 
   public getFechasByRoom(rm: string): Observable<Huesped[]> {
     //return this.huespeds;
-    return this.firestore.collection('Huesped', ref => ref.where('room', '==', rm)).snapshotChanges().pipe(
+    return this.firestore.collection('huespedes', ref => ref.where('room', '==', rm)).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as Huesped;
@@ -136,13 +136,11 @@ export class HuespedService {
   }
 
   public newHuesped(huesped: Huesped): void {
-    //this.huespeds.push(huesped);
-    this.firestore.collection('Huesped').doc(huesped.token).set(huesped);
+    this.firestore.collection('huespedes').doc(huesped.token).set(huesped);
   }
 
   public removeHuesped(id: string): void {
-    //this.huespeds.splice(pos,1);
-    this.firestore.collection('Huesped').doc(id).delete();
+    this.firestore.collection('huespedes').doc(id).delete();
   }
 
   public setToken(hues: string): void {
@@ -155,7 +153,7 @@ export class HuespedService {
 
 
   public filterByDateAdmission(): Observable<Huesped[]> {
-    return this.firestore.collection('Huesped', ref => ref.where('dateAdmission', '>=', this.today)).snapshotChanges().pipe(
+    return this.firestore.collection('huespedes', ref => ref.where('dateAdmission', '>=', this.today)).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as Huesped;
@@ -167,7 +165,7 @@ export class HuespedService {
   }
 
   public filterByLionRoom(): Observable<Huesped[]> {
-    return this.firestore.collection('Huesped', ref => ref.where('room', '==', 'León')).snapshotChanges().pipe(
+    return this.firestore.collection('huespedes', ref => ref.where('room', '==', 'León')).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as Huesped;
@@ -179,7 +177,7 @@ export class HuespedService {
   }
 
   public filterByElephantRoom(): Observable<Huesped[]> {
-    return this.firestore.collection('Huesped', ref => ref.where('room', '==', 'Elefante')).snapshotChanges().pipe(
+    return this.firestore.collection('huespedes', ref => ref.where('room', '==', 'Elefante')).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as Huesped;

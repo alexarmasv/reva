@@ -63,8 +63,8 @@
 
             <ion-modal [keepContentsMounted]="true">
               <ng-template>
-                <ion-datetime id="dateAdmission" presentation="date" 
-                [showDefaultButtons]="true" formControlName="dateAdmission"></ion-datetime>
+                <ion-datetime id="departureDate" presentation="date" 
+                [showDefaultButtons]="true" formControlName="departureDate"></ion-datetime>
               </ng-template>
             </ion-modal>          
           <div>
@@ -79,7 +79,7 @@
           <ion-item id="item">
             <ion-select interface="popover" formControlName="room" placeholder="Selecciona la habitación">
               <ng-container *ngFor="let r of rooms">
-              <ion-select-option [value]="r.name">{{ r.name }}</ion-select-option>
+              <ion-select-option [value]="r">{{ r }}</ion-select-option>
             </ng-container>
             </ion-select>
           </ion-item>

@@ -14,7 +14,7 @@ export class NewHuespedPage implements OnInit {
 
   public huesped: Huesped;
   public huespedsDates: Huesped[];
-  public rooms: Room[];
+  public rooms:any[]= [];
   public myForm: FormGroup;
   public validatorMessages: Object;
   public today: any;
@@ -30,17 +30,19 @@ export class NewHuespedPage implements OnInit {
       advance: 0,
       token: "",
     }]
+    this.rooms.push('León');
+    this.rooms.push('Elefante');
   }
 
   ngOnInit() {
     this.getDate();
     this.huespedService.getRooms().subscribe(res =>{
-      this.rooms = res;
+  
     })
     
     this.myForm = this.fb.group({
       name:["",Validators.required],
-      phone:["",Validators.compose([Validators.required,Validators.minLength(12),Validators.maxLength(13),Validators.pattern(/\+\d+/)])],
+      phone:["",Validators.compose([Validators.required,Validators.minLength(10),Validators.maxLength(10)])],
       dateAdmission:["",Validators.required],
       departureDate:["",Validators.required],
       room:["León",Validators.required]
@@ -116,7 +118,7 @@ getDate() {
         this.huesped = data;
         this.huespedService.newHuesped(this.huesped);
         this.presentToast();
-        this.router.navigate(['/view-huesped']);
+        this.router.navigate(['/huesped']);
         
     }else{
       this.presentToastRoom();
@@ -150,23 +152,5 @@ getDate() {
       return true;
     }
   }
-
-
-  /*public  checkDates(dA){
-    let item = true;
-    
-    this.huespedsDates.forEach(
-      (huesped) => {
-        if(huesped.departureDate.substring(0,10) >= dA.substring(0,10)){
-          //console.log(huesped);
-          item = false;
-        }
-      }
-    )
-    //await this.delay(100);
-    console.log(item);
-    return item;
-  }*/
-
 
 }
