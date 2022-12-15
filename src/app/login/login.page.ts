@@ -30,12 +30,12 @@ export class LoginPage implements OnInit {
       return;
     }
 
-    if (this.huespedService.getHuespedByToken(this.token)) {
-      this.presentToast('bottom', 'Bienvenido');
-      this.getHuespedByToken(this.token);
-      this.huespedService.setToken(this.token);
-      return
-    }
+    // if (this.huespedService.getHuespedByToken(this.token)) {
+    //   this.presentToast('bottom', 'Bienvenido');
+    //   this.getHuespedByToken(this.token);
+    //   this.huespedService.setToken(this.token);
+    //   return
+    // }
 
     this.presentToast('bottom', 'No existe un huesped con ese token');
 
