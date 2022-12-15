@@ -53,7 +53,7 @@ export class NewHuespedPage implements OnInit {
         { type: 'required', message: "Teléfono obligatorio" },
         { type: 'minlength', message: "El Teléfono debe ser de mínimo 11 digitos" },
         { type: 'maxlength', message: "El Teléfono debe ser de máximo 12 digitos" },
-        { type: 'pattern', message: "El Teléfono debe ser solo la lada y los números. Ej. +523113331111" }
+        { type: 'pattern', message: "El Teléfono debe ser de 10 dígitos. Ej. 3113331111" }
       ],
       dateAdmission: [
         { type: 'required', message: "Fecha de entrada obligatoria" }

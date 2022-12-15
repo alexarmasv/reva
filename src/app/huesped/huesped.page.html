@@ -17,13 +17,13 @@
             </div>
             <div class="fecha">
               <p>
-                <ion-label>Fecha de ingreso:</ion-label>
-                <ion-label color="success">{{item.dateAdmission.substring(0,10)}}</ion-label>
+                <ion-text>Fecha de ingreso: </ion-text>
+                <ion-text color="success">{{item.dateAdmission.substring(0,10)}}</ion-text>
               </p>
               <p>
 
-                <ion-label>Fecha de salida:</ion-label>
-                <ion-label color="danger">{{item.departureDate.substring(0,10)}}</ion-label>
+                <ion-text>Fecha de salida: </ion-text>
+                <ion-text color="danger">{{item.departureDate.substring(0,10)}}</ion-text>
               </p>
             </div>
             <div>
@@ -38,7 +38,7 @@
                     </p>
             </div>
             <div>
-              <ion-chip color="success" outline="true" class="ion-float-right">
+              <ion-chip color="success" outline="true" class="ion-float-right" (click)="enviarToken(item.token,item.phone)" >
                 <ion-icon name="logo-whatsapp"></ion-icon>
               </ion-chip>
             </div>

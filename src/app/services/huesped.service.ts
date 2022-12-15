@@ -21,7 +21,7 @@ export class HuespedService {
         dateAdmission: "2022-12-16T08:35:00-07:00",
         departureDate: "2022-12-18T08:35:00-07:00",
         name: "Alejandro",
-        phone: "+523112100310",
+        phone: "3112100310",
         room: "León",
         token: "6eszwk367fjqe8gd5w4728"
       }];
