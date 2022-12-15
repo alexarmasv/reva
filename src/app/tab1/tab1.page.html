@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      {{'REGLAS' | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true"> 
+  
+ <ion-row>
+  <ion-col text-center>
+    <label>
+      {{'IDIOMA'| translate}}
+      <select #langSelect (change)="translate.use(langSelect.value)">
+        <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang == translate.currentLang">{{lang}}</option>
+      </select>
+    </label>
+
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large"> {{'REGLAS' | translate}}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-img style="width: auto; height: 25vh; margin: auto; display: block;" src="https://scontent.ftpq2-1.fna.fbcdn.net/v/t39.30808-6/280805508_104205032295708_3380461089577804993_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeGNFFskRaCJaWknR6tRX0LRxz-EqGPcxZbHP4SoY9zFlr82itL2GtiEJyaoxCh2xyIFZ568dza1VfQEvws55X42&_nc_ohc=e-KpocvZrh4AX_A6jVY&_nc_ht=scontent.ftpq2-1.fna&oh=00_AfDIAG9pI2H0ded9Wr8Ee0jp_3RNYbq6lGDTCBgF7oN5mQ&oe=639F7108"></ion-img>
+    <ion-label>{{ 'BIENVENIDA' | translate }}{{ huesped.name }}</ion-label>
+    <br/>
+    <ion-label>{{ 'BIENVENIDA_P1' | translate }}{{ huesped.room }}</ion-label>
+    <ion-label>{{ 'BIENVENIDA_P11' | translate }} 
+      <ng-container *ngIf="fecha.toISOString() >= huesped.dateAdmission && huesped.departureDate >= fecha.toISOString()">
+        <a [routerLink]="['/tabs/tab4']">Mi Llegada</a>
+      </ng-container>
+      <ng-container *ngIf="huesped.dateAdmission > fecha.toISOString() || fecha.toISOString() > huesped.departureDate">
+        <a>Mi Llegada (No disponible por el momento)</a>
+      </ng-container>
+      {{ 'BIENVENIDA_P111' | translate }}</ion-label>
+    <br />
+    <ion-label>{{ 'BIENVENIDA_P2' | translate }}</ion-label>
+    <ion-label>{{ 'BIENVENIDA_P3' | translate }}</ion-label>
+    <hr />
+    <h4>{{ 'CHECKIN' | translate }}</h4>
+    <ion-label>{{ 'CHECKIN_P1' | translate }}{{ huesped.dateAdmission.substring(0,10) }}</ion-label>
+    <br />
+    <ion-label>{{ 'CHECKIN_P2' | translate }}</ion-label>
+    <hr />
+    <h4>{{ 'CHECKOUT' | translate }}</h4>
+    <ion-label>{{ 'CHECKOUT_P1' | translate }}{{ huesped.departureDate.substring(0,10) }}</ion-label>
+    <br />
+    <ion-label>{{ 'CHECKOUT_P2' | translate }}</ion-label>
+  </ion-col>
+ </ion-row>
+
+</ion-content>

@@ -1,0 +1,85 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      {{"ACTIVIDADES" | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large"> {{"ACTIVIDADES" | translate}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<!-- <app-explore-container name="Tab 3 page"></app-explore-container> --> 
+
+  <h4> {{"DESCRIPCION" | translate}}</h4>
+
+  <ion-accordion-group>
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <ion-label>{{"ACTIVIDADES" | translate}}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        {{"ACTIVIDAD1" | translate}}
+      </div>
+      <div class="ion-padding" slot="content">
+        {{"ACTIVIDAD2" | translate}}
+      </div>
+      <div class="ion-padding" slot="content">
+        {{"ACTIVIDAD3" | translate}}
+      </div>
+      <div class="ion-padding" slot="content">
+        {{"ACTIVIDAD4" | translate}}
+      </div>
+    </ion-accordion>
+
+
+    <ion-accordion value="second">
+      <ion-item slot="header" color="light">
+        <ion-label>  {{"RECOMENDACIONES" | translate}}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        {{"RECOMENDACION1" | translate}}
+      </div>
+      <div class="ion-padding" slot="content">
+        {{"RECOMENDACION2" | translate}}
+      </div>
+      <div class="ion-padding" slot="content">
+        {{"RECOMENDACION3" | translate}}
+      </div>
+      <div class="ion-padding" slot="content">
+        {{"RECOMENDACION4" | translate}}
+      </div>
+    </ion-accordion>
+
+
+    <ion-accordion value="third">
+      <ion-item slot="header" color="light">
+        <ion-label> {{"HISTORIA" | translate}}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        {{"HISTORIACOMPLETA" | translate}}
+      </div>
+    </ion-accordion>
+
+    <ion-accordion value="fourth">
+      <ion-item slot="header" color="light">
+        <ion-label>{{"NUMEROS" | translate}}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        {{"NUM1" | translate}}
+      </div>
+      <div class="ion-padding" slot="content">
+        {{"NUM2" | translate}}
+      </div>
+      <div class="ion-padding" slot="content">
+        {{"NUM3" | translate}}
+      </div>
+    </ion-accordion>
+
+  </ion-accordion-group>
+
+</ion-content>

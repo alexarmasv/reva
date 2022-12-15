@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-title>Inicio de sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <form [formGroup]="myForm">
+      <ion-item lines="full">
+        <ion-label position="floating">Token</ion-label>
+        <ion-input type="text" formControlName="token"
+          (keyup.enter)="login(myForm.value)"></ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="warning" expand="block" (click)="login(myForm.value)">Ingresar</ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
+</ion-content>
