@@ -31,7 +31,7 @@ export class LoginPage implements OnInit {
   public login(data): void {
     
     this.token = data.token;
-    if (this.token === "administrador") {
+    if (this.token === "adm") {
       this.presentToast('bottom', 'Bienvenido Admin');
       this.router.navigate(['/huesped']);
       return;

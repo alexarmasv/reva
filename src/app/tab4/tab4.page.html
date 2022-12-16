@@ -1,9 +1,60 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Recomendaciones</ion-title>
+    <ion-title> {{"llegada" | translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true" class="ion-padding">
+   <ion-accordion-group>
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <p>  {{"llegada" | translate}}</p>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <p>{{ 'ubicacion' | translate }}<a href="https://maps.app.goo.gl/FQipxag7ad34ughX6" target="_blank">https://maps.app.goo.gl/FQipxag7ad34ughX6</a></p>
+        <p>{{ 'instrucciones' | translate }}</p>
+        <p>{{ 'll1' | translate }}</p>
+        <iframe src="/assets/videos/llegada.mp4"></iframe>
+      </div>
+    </ion-accordion>
+
+
+    <ion-accordion value="second">
+      <ion-item slot="header" color="light">
+        <p>{{ 'accesso' | translate }}</p>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <p>{{ 'acc1' | translate }}</p>
+        <p>{{ 'acc2' | translate }} <ion-text color="primary">{{ code }}</ion-text></p>
+      </div>
+    </ion-accordion>
+
+    <ion-accordion value="third">
+      <ion-item slot="header" color="light">
+        <p>{{ 'wifi' | translate }}</p>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <p>{{ 'red' | translate }}</p>
+        <p>{{ 'pass' | translate }}<ion-text color="danger">30101950</ion-text> </p>
+        <p>{{ 'red2' | translate }}</p>
+        <p>{{ 'pass' | translate }}<ion-text color="danger">30101950</ion-text> </p>
+      </div>
+    </ion-accordion>
+
+    <ion-accordion value="fourth">
+      <ion-item slot="header" color="light">
+        <p>{{ 'stream' | translate }}</p>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-slides>
+          <ion-slide *ngFor="let item of list">
+            <img  src={{item}}>
+          </ion-slide>
+        </ion-slides>
+        <p>{{ 'perfil' | translate }}<ion-text color="success">{{ huesped.room }}</ion-text></p>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+
   
 </ion-content>
