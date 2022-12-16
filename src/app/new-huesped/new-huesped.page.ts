@@ -18,7 +18,7 @@ export class NewHuespedPage implements OnInit {
   public myForm: FormGroup;
   public validatorMessages: Object;
   public today: any;
-  public dayDeparture: any;
+  public checkin: any;
   public dateSelected: any;
   constructor(private huespedService:HuespedService, private fb:FormBuilder, private router:Router, private toastController: ToastController) { 
     this.huespedsDates = [{
@@ -67,8 +67,8 @@ export class NewHuespedPage implements OnInit {
     this.myForm.get('checkin').valueChanges.subscribe(selectedValue =>{
       let newDay = new Date(selectedValue);
       newDay.setDate(newDay.getDate() + 1)
-      this.dayDeparture = newDay.getFullYear() + '-' + ('0' + (newDay.getMonth() + 1)).slice(-2) + '-' + ('0' + (newDay.getDate())).slice(-2);
-      console.log(this.dayDeparture);
+      this.checkin = newDay.getFullYear() + '-' + ('0' + (newDay.getMonth() + 1)).slice(-2) + '-' + ('0' + (newDay.getDate())).slice(-2);
+      console.log(this.checkin);
     });
   }
 

@@ -12,42 +12,46 @@ import { Router } from '@angular/router';
 })
 export class HuespedPage implements OnInit {
 
-  
+
   handlerMessage = '';
   roleMessage = '';
   public myForm: FormGroup;
-  public message: string; 
+  public message: string;
   public huespeds: Huesped[];
+  public huespedsAux: Huesped[];
   public huesped: Huesped;
 
-  constructor(private huespedService: HuespedService,private alertController: AlertController,private router: Router, private fb:FormBuilder) {
-    // this.huespeds = huespedService.obtenerHuespedes();
-    this.huespedService.getHuespeds().subscribe(res =>{
+  constructor(private huespedService: HuespedService, private alertController: AlertController, private router: Router, private fb: FormBuilder) {
+    this.huespedService.getHuespeds().subscribe(res => {
       this.huespeds = res;
-      console.log(this.huespeds);
+      this.huespedsAux = this.huespeds;
+      this.huespeds.sort((a, b) => (a.checkin > b.checkin) ? 1 : -1)
     })
-   }
+  }
 
   ngOnInit() {
     this.myForm = this.fb.group({
-      filter:[""]
+      filter: [""]
     });
-
-    console.log(this.myForm.get('filter'));
-
-    this.myForm.get('filter').valueChanges.subscribe(selectedValue =>{
-      switch(selectedValue){
-        case 'all': this.filterByAll()
-
-        ; break;
-        case 'fecha': this.filterByDateAdmission(); break;
-        case 'leon': this.filterByLionRoom(); break;
-        case 'elefante': this.filterByElephantRoom(); break;
+    this.myForm.get('filter').valueChanges.subscribe(selectedValue => {
+      switch (selectedValue) {
+        case 'all':
+          this.todos();
+          break;
+        case 'fecha':
+          this.porFecha();
+          break;
+        case 'leon':
+          this.porLeon();
+          break;
+        case 'elefante':
+          this.porElefante();
+          break;
       }
     });
   }
 
-  async removeHuesped(id:string) {
+  async removeHuesped(id: string) {
     const alert = await this.alertController.create({
       header: '¿Desea eliminar?',
       buttons: [
@@ -75,47 +79,55 @@ export class HuespedPage implements OnInit {
     this.roleMessage = `Dismissed with role: ${role}`;
   }
 
-  public newHuesped():void{
+  public newHuesped(): void {
     this.router.navigate(['/new-huesped']);
   }
 
-  public filterByAll():void{
-    this.huespedService.getHuespeds().subscribe(res =>{
+  public todos(): void {
+    this.huespedService.getHuespeds().subscribe(res => {
       this.huespeds = res;
-      console.log(res);
-      
     })
 
   }
 
-  public filterByDateAdmission():void{
-    this.huespedService.filterByDateAdmission().subscribe(res =>{
-      this.huespeds = res;
-      console.log(this.huespeds);
-    })
-
+  public porFecha(): void {
+    let fecha = new Date;
+    let hs:Huesped[] = []
+    this.huespedsAux.forEach(h=>{
+      console.log(h.checkin);
+      
+      if(h.checkin >=fecha.toISOString()){
+        hs.push(h);
+      }
+    });
+    this.huespeds = hs;
   }
 
-  public filterByLionRoom():void{
-    this.huespedService.filterByLionRoom().subscribe(res =>{
-      this.huespeds = res;
-      
-    })
-
+  public porLeon(): void {
+    let hs:Huesped[] = []
+    this.huespedsAux.forEach(h=>{
+      if(h.room === 'León'){
+        hs.push(h);
+      }
+    });
+    this.huespeds = hs;
   }
 
-  public filterByElephantRoom():void{
-    this.huespedService.filterByElephantRoom().subscribe(res =>{
-      this.huespeds = res;
-      
-    })
+  public porElefante(): void {
+    let hs:Huesped[] = []
+    this.huespedsAux.forEach(h=>{
+      if(h.room === 'Elefante'){
+        hs.push(h);
+      }
+    });
+    this.huespeds = hs;
 
   }
 
   public enviarToken(token: string, tel: string): void {
- 
-    const url = "https://api.whatsapp.com/send?phone=52" + tel + "&text="+
-    "Gracias por tu reservación. Tu token es: " + token;
+
+    const url = "https://api.whatsapp.com/send?phone=52" + tel + "&text=" +
+      "Gracias por tu reservación. Tu token es: " + token;
     window.open(url, '_system', 'location=yes');
   }
 

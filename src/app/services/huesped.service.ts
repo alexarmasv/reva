@@ -53,7 +53,6 @@ export class HuespedService {
   }
 
   public getFechasByRoom(rm: string): Observable<Huesped[]> {
-    //return this.huespeds;
     return this.firestore.collection('huespedes', ref => ref.where('room', '==', rm)).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -73,39 +72,4 @@ export class HuespedService {
     this.firestore.collection('huespedes').doc(id).delete();
   }
 
-  public filterByDateAdmission(): Observable<Huesped[]> {
-    return this.firestore.collection('huespedes', ref => ref.where('checkin', '>=', this.today)).snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as Huesped;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        })
-      })
-    )
-  }
-
-  public filterByLionRoom(): Observable<Huesped[]> {
-    return this.firestore.collection('huespedes', ref => ref.where('room', '==', 'León')).snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as Huesped;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        })
-      })
-    )
-  }
-
-  public filterByElephantRoom(): Observable<Huesped[]> {
-    return this.firestore.collection('huespedes', ref => ref.where('room', '==', 'Elefante')).snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as Huesped;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        })
-      })
-    )
-  }
 }

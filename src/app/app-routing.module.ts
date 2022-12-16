@@ -20,10 +20,6 @@ const routes: Routes = [
     loadChildren: () => import('./new-huesped/new-huesped.module').then( m => m.NewHuespedPageModule)
   },
   {
-    path: 'view-huesped',
-    loadChildren: () => import('./view-huesped/view-huesped.module').then( m => m.ViewHuespedPageModule)
-  },
-  {
     path: 'info-huesped',
     loadChildren: () => import('./info-huesped/info-huesped.module').then( m => m.InfoHuespedPageModule)
   },
