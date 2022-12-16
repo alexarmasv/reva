@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Huesped, Room } from 'src/app/models/huesped';
+import { Huesped } from 'src/app/models/huesped';
 import { HuespedService } from '../services/huesped.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
@@ -24,8 +24,8 @@ export class NewHuespedPage implements OnInit {
     this.huespedsDates = [{
       name: "",
       phone: "",
-      dateAdmission: "",
-      departureDate: "",
+      checkin: "",
+      checkout: "",
       room: "",
       advance: 0,
       token: "",
@@ -36,15 +36,11 @@ export class NewHuespedPage implements OnInit {
 
   ngOnInit() {
     this.getDate();
-    this.huespedService.getRooms().subscribe(res =>{
-  
-    })
-    
     this.myForm = this.fb.group({
       name:["",Validators.required],
       phone:["",Validators.compose([Validators.required,Validators.minLength(10),Validators.maxLength(10)])],
-      dateAdmission:["",Validators.required],
-      departureDate:["",Validators.required],
+      checkin:["",Validators.required],
+      checkout:["",Validators.required],
       room:["León",Validators.required]
     });
     this.validatorMessages = {
@@ -57,10 +53,10 @@ export class NewHuespedPage implements OnInit {
         { type: 'maxlength', message: "El Teléfono debe ser de máximo 12 digitos" },
         { type: 'pattern', message: "El Teléfono debe ser de 10 dígitos. Ej. 3113331111" }
       ],
-      dateAdmission: [
+      checkin: [
         { type: 'required', message: "Fecha de entrada obligatoria" }
       ],
-      departureDate: [
+      checkout: [
         { type: 'required', message: "Fecha de salida obligatoria" }
       ],
       room: [
@@ -68,7 +64,7 @@ export class NewHuespedPage implements OnInit {
       ]
     }
 
-    this.myForm.get('dateAdmission').valueChanges.subscribe(selectedValue =>{
+    this.myForm.get('checkin').valueChanges.subscribe(selectedValue =>{
       let newDay = new Date(selectedValue);
       newDay.setDate(newDay.getDate() + 1)
       this.dayDeparture = newDay.getFullYear() + '-' + ('0' + (newDay.getMonth() + 1)).slice(-2) + '-' + ('0' + (newDay.getDate())).slice(-2);
@@ -111,7 +107,7 @@ getDate() {
   }
 
   public newHuesped(data):void{
-    if(this.checkRoom(data['room'],data['dateAdmission'])){
+    if(this.checkRoom(data['room'],data['checkin'])){
         //Construir el objeto
         data.token = Math.random().toString(36).substr(2) + Math.random().toString(36).substr(2);
         console.log(data);
@@ -137,7 +133,7 @@ getDate() {
     
     this.huespedsDates.forEach(
       (huesped) => {
-        if(huesped.departureDate.substring(0,10) >= dA.substring(0,10)){
+        if(huesped.checkout.substring(0,10) >= dA.substring(0,10)){
           
           item = false;
         }

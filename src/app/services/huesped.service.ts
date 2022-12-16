@@ -1,4 +1,3 @@
-import { Room } from '../models/huesped';
 import { Injectable } from '@angular/core';
 import { Huesped } from "src/app/models/huesped";
 import { map } from 'rxjs/operators';
@@ -12,66 +11,22 @@ export class HuespedService {
 
   private token: string;
   private huespeds: Huesped[];
-  private rooms: Room[];
   private today: any;
+  private huesped:Huesped;
 
   constructor(private firestore: AngularFirestore) {
     this.huespeds = [
       {
-        dateAdmission: "2022-12-16T08:35:00-07:00",
-        departureDate: "2022-12-18T08:35:00-07:00",
+        checkin: "2022-12-16T08:35:00-07:00",
+        checkout: "2022-12-18T08:35:00-07:00",
         name: "Alejandro",
         phone: "3112100310",
         room: "León",
         token: "6eszwk367fjqe8gd5w4728"
       }];
-    /*this.rooms = [
-      {
-        room: "A1",
-        code: "4578",
-        price: 500
-      }, {
-        room: "A2",
-        code: "7864",
-        price: 5000
-      }, {
-        room: "B1",
-        code: "9887",
-        price: 100
-      }, {
-        room: "B2",
-        code: "1278",
-        price: 1000
-      }, {
-        room: "C1",
-        code: "3633",
-        price: 599
-      }, {
-        room: "C2",
-        code: "5210",
-        price: 1599
-      }
-    ]*/
-
-    this.getDate();
-
-    this.getHuespeds().subscribe(res => {
-      this.huespeds = res;
-    });
-
-  }
-
-  obtenerHuespedes():Huesped[]{
-    return this.huespeds;
-  }
-
-  getDate() {
-    this.today = new Date();
-    this.today = this.today.toISOString();
-  }
+    }
 
   public getHuespeds(): Observable<Huesped[]> {
-    //return this.huespeds;
     return this.firestore.collection('huespedes').snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -83,38 +38,13 @@ export class HuespedService {
     )
   }
 
-
-  public getHuespedsByTokenToShow(tkn: string): Observable<Huesped[]> {
-    //return this.huespeds;
-    return this.firestore.collection('huespedes', ref => ref.where('token', '==', tkn)).snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as Huesped;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        })
-      })
-    )
+  public crearHuesped(huesped:Huesped){
+    this.huesped = huesped;
   }
 
-  public getRooms(): Observable<Room[]> {
-    //return this.huespeds;
-    return this.firestore.collection('Room').snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as Room;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        })
-      })
-    )
-  }
 
-  public getHuespedByToken(tkn: string): Huesped {
-    return this.huespeds.find(huesped => {
-      return huesped.token === tkn;
-    }
-    );
+  public getHuesped():Huesped{
+    return this.huesped;
   }
 
   public getHuespedByRoom(rm: string) {
@@ -143,17 +73,8 @@ export class HuespedService {
     this.firestore.collection('huespedes').doc(id).delete();
   }
 
-  public setToken(hues: string): void {
-    this.token = hues;
-  }
-
-  public getToken(): string {
-    return this.token;
-  }
-
-
   public filterByDateAdmission(): Observable<Huesped[]> {
-    return this.firestore.collection('huespedes', ref => ref.where('dateAdmission', '>=', this.today)).snapshotChanges().pipe(
+    return this.firestore.collection('huespedes', ref => ref.where('checkin', '>=', this.today)).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as Huesped;

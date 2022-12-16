@@ -1,54 +1,97 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      {{"INGRESO" | translate}}
+      {{"reglas" | translate}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="enFecha(huespeds[0].dateAdmission, huespeds[0].departureDate)" >
-  <ion-header collapse="condense">
+<ion-content> <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large"> {{"INGRESO" | translate}}</ion-title>
+      <ion-title size="large"> {{"reglas" | translate}}</ion-title>
     </ion-toolbar>
   </ion-header>
 
-<!-- <app-explore-container name="Tab 2 page"></app-explore-container> -->
-
-  <h1> {{"BIENVENIDA" | translate}}</h1>
-
-  <div class = "Ubi">
-    <h2>{{"UBICACION" | translate}}</h2>
-    <p>C. Juárez Sur 85, La Higuera, 63830 Santa María del Oro, Nay.</p>
-  </div>
-
-  <div class = "HoraEntrada">
-    <h2>{{"HORAENTRADA" | translate}}</h2>
-    <h4>03:00 pm</h4>
-  </div>
-
-  <div class = "HoraSalida">
-    <h2>{{"HORASALIDA" | translate}}</h2>
-    <h4>12:00 pm</h4>
-  </div>
-
-  <div class = "Codigo">
-    <h2>{{"CODIGO" | translate}}</h2>
-    <h4>{{getCodeByRoom(huespeds[0].room)}}</h4>
-  </div>
-
-  <div class = "FaltaPagar">
-    <h2>{{"SALDOPAGAR" | translate}}</h2>
-  </div>
-  
-</ion-content>
-<ion-content [fullscreen]="true" *ngIf="!enFecha(huespeds[0].dateAdmission, huespeds[0].departureDate)" >
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large"> {{"INGRESO" | translate}}</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <h1> {{"INGRESOINCORRECTO" | translate}} </h1>
-  
+  <ion-accordion-group>
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <p>{{ 'rg' | translate }}</p>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-slides>
+          <ion-slide>
+            <ion-row>
+              <ion-col>
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyzwfjaDm3Udh70JlzCzSNKdw-0uDU6kuizA&usqp=CAU">
+                <p>{{ 'rg1' | translate }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-slide>
+          <ion-slide>
+            <ion-row>
+              <ion-col>
+                <img
+                  src="https://scontent.ftpq1-1.fna.fbcdn.net/v/t39.30808-6/293033899_135203432529201_3300428833352049603_n.jpg?stp=cp6_dst-jpg&_nc_cat=107&ccb=1-7&_nc_sid=8bfeb9&_nc_eui2=AeFPiYDnu-GyeLFoiGFAumSSrq5qmBCYdziurmqYEJh3OOb4GJENruKYDzMOFdfelXi3OLRwa8sYy1E6HuzJn3ox&_nc_ohc=ZxnQvgYxmgUAX_julwq&_nc_ht=scontent.ftpq1-1.fna&oh=00_AfAEJ0vZp-4Ga4TuHjE9RnYgVSEr-XNZsp3opZJRVqyE7A&oe=63A11D9C">
+                <p>{{ 'rg2' | translate }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-slide>
+          <ion-slide>
+            <ion-row>
+              <ion-col>
+                <img
+                  src="https://scontent.ftpq1-1.fna.fbcdn.net/v/t39.30808-6/290026377_128993156483562_6851239156674942883_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=8bfeb9&_nc_eui2=AeGHM9hhCGguhMCTCVHBlGQzxMSCXLunUjzExIJcu6dSPE3lI4B_6_862MzRN9duDQYqqxhPOxxLq2e20ZB1TDxz&_nc_ohc=RxBkVnytDOQAX9cE-si&_nc_ht=scontent.ftpq1-1.fna&oh=00_AfD9dO0RRC1Q1-BYA5i8fZYYG8LxgeG0F9sDnnybUBxPmw&oe=63A0E0EE">
+                <p>{{ 'rg3' | translate }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-slide>
+          <ion-slide>
+            <ion-row>
+              <ion-col>
+                <img src="https://hqbeds.com/wp-content/uploads/2020/05/hospedepremium-1.jpg">
+                <p>{{ 'rg4' | translate }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-slide>
+          <ion-slide>
+            <ion-row>
+              <ion-col>
+                <img src="https://static.diariofemenino.com/uploads/hogar/ruido.jpg">
+                <p>{{ 'rg5' | translate }}<a
+                    href="https://dof.gob.mx/nota_detalle.php?codigo=4706988&fecha=22/06/1994#gsc.tab=0"
+                    target="_blank">NOM-081-ECOL-1994</a></p>
+              </ion-col>
+            </ion-row>
+          </ion-slide>
+        </ion-slides>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="second">
+      <ion-item slot="header" color="light">
+        <p>{{ 'rpf' | translate }}</p>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+       <p>{{ 'rpf0' | translate }}</p>       
+        <p>{{ 'rpf1' | translate }}</p>
+        <p>{{ 'rpf2' | translate }}</p>
+        <p>{{ 'rpf3' | translate }}</p>
+        <p>{{ 'rpf4' | translate }}</p>
+        <p>{{ 'rpf5' | translate }}</p>       
+        <p>{{ 'rpg6' | translate }}</p>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="third">
+      <ion-item slot="header" color="light">
+        <p>{{ 'rf' | translate }}</p>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-row>
+          <ion-col>
+            <p>{{ 'rf1' | translate }}</p>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
 </ion-content>

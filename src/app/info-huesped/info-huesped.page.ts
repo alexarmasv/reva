@@ -10,18 +10,18 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class InfoHuespedPage implements OnInit {
 
-  public huespeds: Huesped[];
+  public huespeds: Huesped;
 
   constructor(private huespedService:HuespedService, private aRoute:ActivatedRoute) {
-    this.huespeds = [{
+    this.huespeds = {
       name: '',
       phone: '',
-      dateAdmission: '',
-      departureDate: '',
+      checkin: '',
+      checkout: '',
       room: '',
       advance: 0,
       token: '',
-    }]
+    }
    }
 
   ngOnInit() {
@@ -29,10 +29,8 @@ export class InfoHuespedPage implements OnInit {
       (params)=>{
         //console.log(params);
         //this.huesped = this.huespedService.getHuespedByToken(params['token']);
-        this.huespedService.getHuespedsByTokenToShow(params['token']).subscribe(res =>{
-          this.huespeds = res;
-          console.log(this.huespeds);
-        })
+        this.huespedService.getHuesped();
+        
       }
     );
   }

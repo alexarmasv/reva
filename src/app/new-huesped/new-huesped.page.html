@@ -37,19 +37,19 @@
           <ion-col>
             <ion-item>
               <ion-label>Fecha Ingreso</ion-label>
-              <ion-datetime-button slot="end" datetime="dateAdmission"></ion-datetime-button>
+              <ion-datetime-button slot="end" datetime="checkin"></ion-datetime-button>
             </ion-item>
 
             <ion-modal [keepContentsMounted]="true">
               <ng-template>
-                <ion-datetime id="dateAdmission" presentation="date" 
-                [showDefaultButtons]="true" formControlName="dateAdmission"></ion-datetime>
+                <ion-datetime id="checkin" presentation="date" 
+                [showDefaultButtons]="true" formControlName="checkin"></ion-datetime>
               </ng-template>
             </ion-modal>          
           <div>
-            <ng-container *ngFor="let item of validatorMessages['dateAdmission']">
-              <div class="errormessage" *ngIf="(myForm.get('dateAdmission').dirty || 
-              myForm.get('dateAdmission').touched) && myForm.get('dateAdmission').hasError(item.type) ">
+            <ng-container *ngFor="let item of validatorMessages['checkin']">
+              <div class="errormessage" *ngIf="(myForm.get('checkin').dirty || 
+              myForm.get('checkin').touched) && myForm.get('checkin').hasError(item.type) ">
               {{item.message}}
               </div>
             </ng-container>
@@ -58,19 +58,19 @@
           <ion-col>
             <ion-item>
               <ion-label>Fecha de salida</ion-label>
-              <ion-datetime-button slot="end" datetime="departureDate"></ion-datetime-button>
+              <ion-datetime-button slot="end" datetime="checkout"></ion-datetime-button>
             </ion-item>
 
             <ion-modal [keepContentsMounted]="true">
               <ng-template>
-                <ion-datetime id="departureDate" presentation="date" 
-                [showDefaultButtons]="true" formControlName="departureDate"></ion-datetime>
+                <ion-datetime id="checkout" presentation="date" 
+                [showDefaultButtons]="true" formControlName="checkout"></ion-datetime>
               </ng-template>
             </ion-modal>          
           <div>
-            <ng-container *ngFor="let item of validatorMessages['departureDate']">
-              <div class="errormessage" *ngIf="(myForm.get('departureDate').dirty || 
-              myForm.get('departureDate').touched) && myForm.get('departureDate').hasError(item.type) ">
+            <ng-container *ngFor="let item of validatorMessages['checkout']">
+              <div class="errormessage" *ngIf="(myForm.get('checkout').dirty || 
+              myForm.get('checkout').touched) && myForm.get('checkout').hasError(item.type) ">
               {{item.message}}
               </div>
             </ng-container>

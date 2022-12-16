@@ -25,9 +25,9 @@
           <ng-container *ngIf="item.name != '' && myForm.value['filter'] !=''">
               <ion-item>
                 <ion-note slot="start">Fecha de ingreso:</ion-note>
-                <ion-note slot="start">{{item.dateAdmission.substring(0,10)}}</ion-note>
+                <ion-note slot="start">{{item.checkin.substring(0,10)}}</ion-note>
                 <ion-note slot="start">Fecha de salida:</ion-note>
-                <ion-note slot="start">{{item.departureDate.substring(0,10)}}</ion-note>
+                <ion-note slot="start">{{item.checkout.substring(0,10)}}</ion-note>
                 <a href="https://wa.me/{{item.phone}}?text={{message}}" target="_blank"><ion-icon name='logo-whatsapp' slot="start"></ion-icon></a>
                 <a href="https://wa.me/{{item.phone}}?text={{item.token}}" target="_blank"><ion-label class="name">Token</ion-label></a>
                 <ion-label class="name">

@@ -115,7 +115,7 @@ export class HuespedPage implements OnInit {
   public enviarToken(token: string, tel: string): void {
  
     const url = "https://api.whatsapp.com/send?phone=52" + tel + "&text="+
-    "Gracias por tu reservación. Tu token es:" + token;
+    "Gracias por tu reservación. Tu token es: " + token;
     window.open(url, '_system', 'location=yes');
   }
 

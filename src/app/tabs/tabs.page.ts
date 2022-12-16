@@ -14,9 +14,9 @@ export class TabsPage {
   public huesped: Huesped;
 
   constructor(public translate : TranslateService, huespedService:HuespedService) {
-    this.huesped = huespedService.getHuespedByToken(huespedService.getToken());
+    this.huesped = huespedService.getHuesped();
     let fecha = new Date;
-    if(this.huesped.dateAdmission <= fecha.toISOString() &&  this.huesped.departureDate >= fecha.toISOString()){
+    if(this.huesped.checkin <= fecha.toISOString() &&  this.huesped.checkout >= fecha.toISOString()){
       this.isButtonDisabled = false;
     }else{
       this.isButtonDisabled = true;

@@ -1,54 +1,142 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      {{'REGLAS' | translate}}
+      {{'bienvenida' | translate}}
     </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true"> 
-  
- <ion-row>
-  <ion-col text-center>
     <label>
       {{'IDIOMA'| translate}}
       <select #langSelect (change)="translate.use(langSelect.value)">
-        <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang == translate.currentLang">{{lang}}</option>
+        <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang == translate.currentLang">
+          {{lang}}</option>
       </select>
     </label>
+  </ion-toolbar>
+</ion-header>
 
-    <ion-header collapse="condense">
-      <ion-toolbar>
-        <ion-title size="large"> {{'REGLAS' | translate}}</ion-title>
-      </ion-toolbar>
-    </ion-header>
+<ion-content [fullscreen]="true">
 
-    <ion-img style="width: auto; height: 25vh; margin: auto; display: block;" src="https://scontent.ftpq2-1.fna.fbcdn.net/v/t39.30808-6/280805508_104205032295708_3380461089577804993_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeGNFFskRaCJaWknR6tRX0LRxz-EqGPcxZbHP4SoY9zFlr82itL2GtiEJyaoxCh2xyIFZ568dza1VfQEvws55X42&_nc_ohc=e-KpocvZrh4AX_A6jVY&_nc_ht=scontent.ftpq2-1.fna&oh=00_AfDIAG9pI2H0ded9Wr8Ee0jp_3RNYbq6lGDTCBgF7oN5mQ&oe=639F7108"></ion-img>
-    <ion-label>{{ 'BIENVENIDA' | translate }}{{ huesped.name }}</ion-label>
-    <br/>
-    <ion-label>{{ 'BIENVENIDA_P1' | translate }}{{ huesped.room }}</ion-label>
-    <ion-label>{{ 'BIENVENIDA_P11' | translate }} 
-      <ng-container *ngIf="fecha.toISOString() >= huesped.dateAdmission && huesped.departureDate >= fecha.toISOString()">
-        <a [routerLink]="['/tabs/tab4']">Mi Llegada</a>
-      </ng-container>
-      <ng-container *ngIf="huesped.dateAdmission > fecha.toISOString() || fecha.toISOString() > huesped.departureDate">
-        <a>Mi Llegada (No disponible por el momento)</a>
-      </ng-container>
-      {{ 'BIENVENIDA_P111' | translate }}</ion-label>
-    <br />
-    <ion-label>{{ 'BIENVENIDA_P2' | translate }}</ion-label>
-    <ion-label>{{ 'BIENVENIDA_P3' | translate }}</ion-label>
-    <hr />
-    <h4>{{ 'CHECKIN' | translate }}</h4>
-    <ion-label>{{ 'CHECKIN_P1' | translate }}{{ huesped.dateAdmission.substring(0,10) }}</ion-label>
-    <br />
-    <ion-label>{{ 'CHECKIN_P2' | translate }}</ion-label>
-    <hr />
-    <h4>{{ 'CHECKOUT' | translate }}</h4>
-    <ion-label>{{ 'CHECKOUT_P1' | translate }}{{ huesped.departureDate.substring(0,10) }}</ion-label>
-    <br />
-    <ion-label>{{ 'CHECKOUT_P2' | translate }}</ion-label>
-  </ion-col>
- </ion-row>
+  <ion-row class="ion-padding">
+    <ion-col text-center style="border: 1px solid gray;">    
+      <ion-header collapse="condense">
+        <ion-toolbar>
+          <ion-title size="large"> {{'REGLAS' | translate}}</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <div>
+        <ion-img style="width: auto; height: 25vh; margin: auto; display: block;"
+          src="https://scontent.ftpq2-1.fna.fbcdn.net/v/t39.30808-6/280805508_104205032295708_3380461089577804993_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeGNFFskRaCJaWknR6tRX0LRxz-EqGPcxZbHP4SoY9zFlr82itL2GtiEJyaoxCh2xyIFZ568dza1VfQEvws55X42&_nc_ohc=e-KpocvZrh4AX_A6jVY&_nc_ht=scontent.ftpq2-1.fna&oh=00_AfDIAG9pI2H0ded9Wr8Ee0jp_3RNYbq6lGDTCBgF7oN5mQ&oe=639F7108"></ion-img>
+        <ion-label>{{ 'BIENVENIDA' | translate }}{{ huesped.name }}</ion-label>
+      </div>
+      <div>
+        <ion-label>{{ 'BIENVENIDA_P1' | translate }}{{ huesped.room }}</ion-label>
+        <ion-label>{{ 'BIENVENIDA_P11' | translate }}
 
+          <a *ngIf="fecha.toISOString() >= huesped.checkin && huesped.checkout >= fecha.toISOString()"
+            [routerLink]="['/tabs/tab4']">Mi Llegada</a>
+
+          <a *ngIf="huesped.checkin > fecha.toISOString() || fecha.toISOString() > huesped.checkout">Mi Llegada ***Aún
+            no
+            está en tiempo de reservacion***</a>
+
+          {{ 'BIENVENIDA_P111' | translate }}</ion-label>
+      </div>
+      <div>
+
+        <ion-label>{{ 'BIENVENIDA_P2' | translate }}</ion-label>
+        <ion-label>{{ 'BIENVENIDA_P3' | translate }}</ion-label>
+      </div>
+      <div>
+
+        <p class="bold">{{ 'CHECKIN' | translate }}</p>
+        <p>{{ 'CHECKIN_P1' | translate }} <span class="bold">{{ huesped.checkin | date:'shortDate' }}</span></p>
+
+        <p>{{ 'CHECKIN_P2' | translate }}</p>
+      </div>
+      <div >
+        <p class="bold">{{ 'CHECKOUT' | translate }}</p>
+        <p>{{ 'CHECKOUT_P1' | translate }} <span class="bold">{{ huesped.checkout | date:'shortDate' }}</span> </p>
+        <p>{{ 'CHECKOUT_P2' | translate }}</p>
+      </div>
+
+      <div>
+        <p>{{'TEXTORECOM' | translate}}</p>
+
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <div>
+    <ion-accordion-group>
+      <ion-accordion value="first">
+        <ion-item slot="header">
+          <ion-label>{{ 'R1' | translate }}</ion-label>
+        </ion-item>
+        <div slot="content">
+          <ion-slides>
+            <ion-slide *ngFor="let photo of photos1">
+              <img class="img-slide" src={{photo}} />
+            </ion-slide>
+          </ion-slides>
+          <p>{{ 'R11' | translate }}<a href="tel:+523112661762">3112661762</a></p>
+          <p>{{ 'R12' | translate }}<a href="tel:+523112661762">3112661762</a></p>
+
+          <p class="aviso">{{ 'AVISO' | translate }}</p>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="second">
+        <ion-item slot="header">
+          <ion-label>{{'R2' | translate}}</ion-label>
+        </ion-item>
+        <div slot="content">
+          <ion-slides>
+            <ion-slide *ngFor="let photo of photos2">
+              <img class="img-slide" src={{photo}} />
+            </ion-slide>
+          </ion-slides>
+          <p>{{ 'R21' | translate }}<a href="tel:+523111232609">3111232609</a></p>
+          <p>{{ 'R22' | translate }}<a href="tel:+523111232609">3111232609</a></p>
+
+          <p class="aviso">{{ 'AVISO' | translate }}</p>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="third">
+        <ion-item slot="header">
+          <ion-label>{{'R3' | translate}}</ion-label>
+        </ion-item>
+        <div slot="content">
+          <ion-slides>
+            <ion-slide *ngFor="let photo of photos3">
+              <img class="img-slide" src={{photo}} />
+            </ion-slide>
+          </ion-slides>
+          <p>{{ 'R31' | translate }}</p>
+         
+        </div>
+      </ion-accordion>
+      <ion-accordion value="four">
+        <ion-item slot="header">
+          <ion-label>{{ 'k' | translate }}</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <img
+            src="https://scontent.ftpq2-1.fna.fbcdn.net/v/t39.30808-6/305987630_125497706905688_657665189673724151_n.jpg?stp=cp6_dst-jpg&_nc_cat=111&ccb=1-7&_nc_sid=8bfeb9&_nc_eui2=AeHZZpU7b9naeqvvHu4dQ9KrT9wcCPlVEglP3BwI-VUSCSfv5bh3uMPKyoNSPKnEUBr-OsaH1waRrRlSt0IAIRjD&_nc_ohc=mBK3jKAhtlgAX9VZTDk&_nc_ht=scontent.ftpq2-1.fna&oh=00_AfBls5QWlWheYD0K50j7eSGzXpwoYk0rPQh7IiW3rAvA1g&oe=639FB68F">
+          <p>{{ 'k0' | translate }}</p>         
+          <p>{{ 'k1' | translate }}</p>        
+          <p>{{ 'k2' | translate }}</p>         
+          <p>{{ 'k3' | translate }}</p>         
+          <p>{{ 'k4' | translate }}</p>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="five">
+        <ion-item slot="header">
+          <ion-label>{{ 'n0' | translate }}</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <img
+            src="https://i.ytimg.com/vi/QOq_CsuQN_0/maxresdefault.jpg">
+          <p>{{ 'n1' | translate }}</p>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </div>
 </ion-content>

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Huesped } from '../models/huesped';
 
 @Component({
   selector: 'app-login',
@@ -13,16 +14,22 @@ export class LoginPage implements OnInit {
 
   public token: string;
   public myForm: FormGroup;
+  private huespedes:Huesped[];
 
-  constructor(private fb: FormBuilder, private toastController: ToastController, private router: Router, private huespedService: HuespedService) { }
+  constructor(private fb: FormBuilder, private toastController: ToastController, private router: Router, private huespedService: HuespedService) { 
+    this.huespedService.getHuespeds().subscribe(res =>{
+      this.huespedes = res;
+    })
+  }
 
   ngOnInit() {
     this.myForm = this.fb.group({
-      token: "administrador"
+      token: "o462vqhuuze74vyrtxbou"
     });
   }
 
   public login(data): void {
+    
     this.token = data.token;
     if (this.token === "administrador") {
       this.presentToast('bottom', 'Bienvenido Admin');
@@ -30,25 +37,28 @@ export class LoginPage implements OnInit {
       return;
     }
 
-    // if (this.huespedService.getHuespedByToken(this.token)) {
-    //   this.presentToast('bottom', 'Bienvenido');
-    //   this.getHuespedByToken(this.token);
-    //   this.huespedService.setToken(this.token);
-    //   return
-    // }
+    let huesped; 
+    this.huespedes.forEach(h => {
+        if(h.token === this.token){
+          huesped = h;
+        }
+    });
+    
+    if (huesped!==undefined) {
+      this.presentToast('bottom', 'Bienvenido');
+      this.huespedService.crearHuesped(huesped);
+      this.router.navigate(['/tabs/tab1']);
+      return
+    }
 
     this.presentToast('bottom', 'No existe un huesped con ese token');
 
   }
 
-  public getHuespedByToken(token: string): void {
-    this.router.navigate(['/tabs/tab1']);
-  }
-
   async presentToast(position: 'top' | 'middle' | 'bottom', msj: string) {
     const toast = await this.toastController.create({
       message: msj,
-      duration: 1000,
+      duration: 500,
       position: position
     });
 
