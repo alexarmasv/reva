@@ -13,35 +13,29 @@ import { Router } from '@angular/router';
 export class NewHuespedPage implements OnInit {
 
   public huesped: Huesped;
-  public huespedsDates: Huesped[];
-  public rooms:any[]= [];
+  public huespeds: Huesped[];
+
+  public rooms: any[] = [];
+
   public myForm: FormGroup;
   public validatorMessages: Object;
-  public today: any;
+
   public checkin: any;
-  public dateSelected: any;
-  constructor(private huespedService:HuespedService, private fb:FormBuilder, private router:Router, private toastController: ToastController) { 
-    this.huespedsDates = [{
-      name: "",
-      phone: "",
-      checkin: "",
-      checkout: "",
-      room: "",
-      advance: 0,
-      token: "",
-    }]
+  constructor(private huespedService: HuespedService, private fb: FormBuilder, private router: Router, private toastController: ToastController) {
     this.rooms.push('León');
     this.rooms.push('Elefante');
+    this.huespedService.getHuespeds().subscribe(res => {
+      this.huespeds = res;
+    })
   }
 
   ngOnInit() {
-    this.getDate();
     this.myForm = this.fb.group({
-      name:["",Validators.required],
-      phone:["",Validators.compose([Validators.required,Validators.minLength(10),Validators.maxLength(10)])],
-      checkin:["",Validators.required],
-      checkout:["",Validators.required],
-      room:["León",Validators.required]
+      name: ["", Validators.required],
+      phone: ["", Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)])],
+      checkin: ["", Validators.required],
+      checkout: ["", Validators.required],
+      room: ["León", Validators.required]
     });
     this.validatorMessages = {
       name: [
@@ -64,17 +58,12 @@ export class NewHuespedPage implements OnInit {
       ]
     }
 
-    this.myForm.get('checkin').valueChanges.subscribe(selectedValue =>{
+    this.myForm.get('checkin').valueChanges.subscribe(selectedValue => {
       let newDay = new Date(selectedValue);
       newDay.setDate(newDay.getDate() + 1)
       this.checkin = newDay.getFullYear() + '-' + ('0' + (newDay.getMonth() + 1)).slice(-2) + '-' + ('0' + (newDay.getDate())).slice(-2);
-      console.log(this.checkin);
     });
   }
-
-getDate() { 
-  const date = new Date(); 
-  this.today = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + (date.getDate() + 1)).slice(-2); /*console.log(this.today);*/ }
 
   async presentToast() {
     const toast = await this.toastController.create({
@@ -86,9 +75,9 @@ getDate() {
     await toast.present();
   }
 
-  async presentToastRoom() {
+  async reservada() {
     const toast = await this.toastController.create({
-      message: 'Habitación no disponible para las fechas que requiere',
+      message: 'La habitación ya está reservada en esas fechas',
       duration: 1500,
       position: 'bottom'
     });
@@ -96,57 +85,73 @@ getDate() {
     await toast.present();
   }
 
-  async presentToastAdvance() {
-    const toast = await this.toastController.create({
-      message: 'Anticipo no válido. Debe ser mayor al 30% o igual al total de la habitación!',
-      duration: 1500,
-      position: 'bottom'
-    });
+  public newHuesped(data) {
+    if (this.checkRoom(data['room'], data['checkin'])) {
+      data.token = Math.random().toString(36).substr(2) + Math.random().toString(36).substr(2);
+      this.huesped = data;
+      this.huespedService.newHuesped(this.huesped);
+      this.presentToast();
+      this.router.navigate(['/huesped']);
 
-    await toast.present();
-  }
-
-  public newHuesped(data):void{
-    if(this.checkRoom(data['room'],data['checkin'])){
-        //Construir el objeto
-        data.token = Math.random().toString(36).substr(2) + Math.random().toString(36).substr(2);
-        console.log(data);
-        this.huesped = data;
-        this.huespedService.newHuesped(this.huesped);
-        this.presentToast();
-        this.router.navigate(['/huesped']);
-        
-    }else{
-      this.presentToastRoom();
+    } else {
+      this.reservada();
     }
   }
 
-  public checkRoom(room,dA){
-    
-    if(this.huespedService.getHuespedByRoom(room)){
-      
-      this.huespedService.getFechasByRoom(room).subscribe(res =>{
-        this.huespedsDates = res;
-        
-      })
-      let item = true;
-    
-    this.huespedsDates.forEach(
-      (huesped) => {
-        if(huesped.checkout.substring(0,10) >= dA.substring(0,10)){
-          
-          item = false;
-        }
-      });
+  padTo2Digits(num) {
+    return num.toString().padStart(2, '0');
+  }
 
-      if(!item){
-        return false;
-      }else{
-        return true;
+  formatDate(date: Date) {
+    return [
+      this.padTo2Digits(date.getDate()),
+      this.padTo2Digits(date.getMonth() + 1),
+      date.getFullYear(),
+    ].join('/');
+  }
+
+  public checkRoom(room, checkin) {
+
+    const date = this.formatDate(new Date(checkin));
+
+    let flag = true;
+
+    this.huespeds.forEach(element => {
+      const hdate = this.formatDate(new Date(element.checkin));
+      if (hdate === date && room === element.room) {
+        flag = false;
       }
-    }else{
-      return true;
-    }
+
+    });
+
+    return flag;
+
+    // if(this.huespedService.getHuespedByRoom(room)){
+
+    //   this.huespedService.getFechasByRoom(room).subscribe(res =>{
+    //     this.huespedsDates = res;
+
+    //   })
+    //   let item = true;
+
+    // this.huespedsDates.forEach(
+    //   (huesped) => {
+    //     if(huesped.checkout.substring(0,10) >= checkin.substring(0,10)){
+
+    //       item = false;
+    //     }
+    //   });
+
+    //   if(!item){
+    //     return false;
+    //   }else{
+    //     return true;
+    //   }
+    // }else{
+    //   return true;
+    // }
   }
+
+
 
 }

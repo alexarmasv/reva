@@ -1,9 +1,9 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar  color="warning">
     <ion-title>
       {{'bienvenida' | translate}}
     </ion-title>
-    <label>
+    <label slot="end">
       {{'IDIOMA'| translate}}
       <select #langSelect (change)="translate.use(langSelect.value)">
         <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang == translate.currentLang">
