@@ -24,14 +24,14 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.myForm = this.fb.group({
-      token: "o462vqhuuze74vyrtxbou"
+      token: ""
     });
   }
 
   public login(data): void {
     
     this.token = data.token;
-    if (this.token === "adm") {
+    if (this.token === "admi") {
       this.presentToast('bottom', 'Bienvenido Admin');
       this.router.navigate(['/huesped']);
       return;

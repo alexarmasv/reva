@@ -47,8 +47,11 @@
                     </p>
             </div>
             <div>
-              <ion-chip color="success" outline="true" class="ion-float-right" (click)="enviarToken(item.token,item.phone)" >
+              <ion-chip color="success" outline="true" class="ion-float-right" (click)="enviarLink(item.token,item.phone)" >
                 <ion-icon name="logo-whatsapp"></ion-icon>
+              </ion-chip>
+              <ion-chip color="primary" outline="true" class="ion-float-right" (click)="enviarToken(item.token,item.phone)" >
+                <ion-icon name="key-outline"></ion-icon>
               </ion-chip>
             </div>
           </ion-item>

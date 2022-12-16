@@ -123,11 +123,14 @@ export class HuespedPage implements OnInit {
     this.huespeds = hs;
 
   }
-
   public enviarToken(token: string, tel: string): void {
-
     const url = "https://api.whatsapp.com/send?phone=52" + tel + "&text=" +
-      "Gracias por tu reservación. Tu token es: " + token;
+      "Tu token es: " + token;
+    window.open(url, '_system', 'location=yes');
+  }
+  public enviarLink(token: string, tel: string): void {
+    const url = "https://api.whatsapp.com/send?phone=52" + tel + "&text=" +
+      "Gracias por tu reservación. Ingresa a https://ubiquitous-salamander-d1c528.netlify.app/. Tu token es: " + token;
     window.open(url, '_system', 'location=yes');
   }
 

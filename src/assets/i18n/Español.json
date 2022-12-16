@@ -1,7 +1,7 @@
 {
     "INGRESO":"Ingreso",
-    "bienvenida":"Bienvenid(a)",
-    "interes":"Lugares de Interes",
+    "bienvenida":"Bienvenido(a)",
+    "interes":"Lugares de Interés",
     "llegada":"Mi llegada",
     "BIENVENIDA":"Estimado(a) ",
     "BIENVENIDA_P1":"Gracias por reservar el bungalow ", 
@@ -85,5 +85,5 @@
     "pass":"Contraseña: ",
     "red2":"Red alternativa: VILLAERNESTINAMAX_leon ",
     "stream":"Cuentas de streaming",
-    "perfil":"Ingresa con el perfil: ",
+    "perfil":"Ingresa con el perfil: "
 }
